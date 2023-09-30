@@ -1,0 +1,37 @@
+import React, { useState } from "react";
+
+export const GenericBlock = ({ mouseEnterCallback, children }) => {
+  const [isActive, setActive] = useState(false);
+
+  const mouseEnterHandler = () => {
+    setActive(true);
+    mouseEnterCallback();
+  };
+
+  return (
+    <div onMouseEnter={mouseEnterHandler} className={isActive ? "active" : ""}>
+      {children}
+    </div>
+  );
+};
+
+
+export const Block1 = ({ mouseEnterCallback, imgSrc, imgAlt }) => (
+  <GenericBlock mouseEnterCallback={mouseEnterCallback}>
+    <img src={imgSrc} alt={imgAlt} />
+  </GenericBlock>
+);
+
+export const Block2 = ({ mouseEnterCallback, content }) => (
+  <GenericBlock mouseEnterCallback={mouseEnterCallback}>
+    <p>{content}</p>
+  </GenericBlock>
+);
+
+export const Block3 = ({ mouseEnterCallback, userData }) => (
+  <GenericBlock mouseEnterCallback={mouseEnterCallback}>
+    <address>
+      country: {userData.country}, street: {userData.street}
+    </address>
+  </GenericBlock>
+);

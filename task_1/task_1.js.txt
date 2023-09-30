@@ -1,0 +1,47 @@
+import React, { Component } from 'react';
+
+type IUser = {
+    name: string;
+    age: number;
+};
+
+type IProps = {
+    user: IUser;
+};
+
+//component с мемоизацией
+const FirstComponent = React.memo(({ name, age }: IUser) => (
+    <div>
+        my name is {name}, my age is {age}
+    </div>
+));
+
+// functional component с мемоизацией
+const SecondComponent = React.memo(({ user: { name, age } }: IProps) => (
+    <div>
+        my name is {name}, my age is {age}
+    </div>
+));
+
+//component с PureComponent
+class ThirdComponent extends React.PureComponent<IUser> {
+    render() {
+        return (
+            <div>
+                my name is {this.props.name}, my age is {this.props.age}
+            </div>
+        );
+    }
+}
+
+//component с PureComponent
+class FourthComponent extends React.PureComponent<IProps> {
+    render() {
+        const { user } = this.props;
+        return (
+            <div>
+                my name is {user.name}, my age is {user.age}
+            </div>
+        );
+    }
+}

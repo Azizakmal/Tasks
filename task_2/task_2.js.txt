@@ -1,0 +1,15 @@
+import React, { Fragment, memo, useCallback } from 'react';
+
+const MainComponent = () => {
+    const makeLog = useCallback(() => console.log('hi from MainComponent'), []);//Проблема возникает из-за того, что memo проверяет только изменения в пропсах компонента, но не учитывает изменения функций, переданных в пропсах.  решить эту проблему я использовать хук useCallback
+
+    return (
+        <Fragment>
+            <ChildComponent makeLog={makeLog} />
+        </Fragment>
+    );
+};
+
+const ChildComponent = memo(({ makeLog }) => (
+    <button onClick={makeLog}>say Hi from ChildComponent</button>
+));
